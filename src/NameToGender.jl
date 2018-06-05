@@ -104,7 +104,7 @@ function _classify_gender(cscore_fun, name, detector)
         end
     end
     if max_score == 0
-        throw(BoundsError(name))
+        throw(KeyError(name))
     end
     most_likely_gender
 end
