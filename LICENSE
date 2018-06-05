@@ -1,4 +1,15 @@
-Copyright (c) 2018 Lyndon White (aka oxinabox)
+Copyright (c) 2018 Lyndon White (aka oxinabox) -- NameToGender.jl (Julia)
+Copyright (c) 2016 Lead Ratings --  gender-guesser (Python)
+Copyright (c) 2013 Ferhat Elmas --  SexMachine (Python)
+Copyright (c) 2007 Jörg Michael -- gender.c (C)
+
+
+Note: 
+The data file nam_dict.txt is released under the GNU Free Documentation License.
+
+
+
+
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
