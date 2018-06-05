@@ -9,6 +9,51 @@
 
 
 
+## Usage
+
+
+NameToGender exports 1 function with two methods: `classify_gender(name)` and `classify_gender(name, country)`.
+The latter is country sensitive. See the doc strings for more information on that.
+
+`classify_gender` returns a value from the `GenderUsage` Enum:
+
+```
+@enum GenderUsage Male=-2 MostlyMale=-1 Androgynous=0 MostlyFemale=1 Female=2
+```
+
+You can use that directly e.g.
+```
+julia> classify_gender("Billie")
+MostlyFemale::NameToGender.GenderUsage = 1
+
+julia> classify_gender("Ada")
+Female::NameToGender.GenderUsage = 2
+```
+
+or  via comparason (though that does man remembering the Enum's order)
+
+```
+julia> people = ["Billie", "Ada", "Tom", "Jon", "Sally"]
+5-element Array{String,1}:
+ "Billie"
+ "Ada"
+ "Tom"
+ "Jon"
+ "Sally"
+
+julia> prob_ladies = people[classify_gender.(people) .>= MostlyFemale ]
+3-element Array{String,1}:
+ "Billie"
+ "Ada"
+ "Sally"
+```
+
+
+## Notice:
+
+This is a heurstic approach.
+It is not perfect.
+
 
 
 ## License and Origin
