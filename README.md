@@ -48,6 +48,21 @@ julia> prob_ladies = people[classify_gender.(people) .>= MostlyFemale ]
  "Sally"
 ```
 
+If a name is not found in the database of names then `missing` is returned.
+
+```
+julia> using Missings # Required in julia 0.6 for ismissing etc.
+
+julia> classify_gender("Linden")
+missing
+
+julia> ismissing.(classify_gender.(["Linden", "Lyndon"]))
+2-element BitArray{1}:
+  true
+  false
+```
+
+
 
 ## Notice:
 
