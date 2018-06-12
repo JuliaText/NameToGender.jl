@@ -1,5 +1,7 @@
 __precompile__()
 module NameToGender
+using Missings
+
 export GenderUsage, classify_gender, GenderDetector
 export Female, Male, MostlyFemale, MostlyMale, Androgynous
 
@@ -16,9 +18,11 @@ COUNTRIES = """great_britain ireland usa italy malta portugal spain france
 
 @enum GenderUsage Male=-2 MostlyMale=-1 Androgynous=0 MostlyFemale=1 Female=2
 
+
+const GenderUsageScores = Dict{GenderUsage, Vector{Int8}}
 struct GenderDetector
     case_sensitive::Bool
-    names::Dict{String, Dict{GenderUsage, Vector{Int8}}}
+    names::Dict{String, GenderUsageScores}
 end
 
 
@@ -34,7 +38,7 @@ function GenderDetector(;
     datapath = joinpath(@__DIR__, "..", "deps", "data", "nam_dict.txt")
 )
 
-    names = Dict{String, Dict{GenderUsage, Vector{Int8}}}()
+    names = Dict{String, GenderUsageScores}()
 	function add_name(name, gender, country_values)
 	    if !case_sensitive
             name=lowercase(name)
@@ -45,7 +49,7 @@ function GenderDetector(;
                 add_name(altname, gender, country_values)
             end
 		else
-            genders = get!(Dict{GenderUsage, Vector{Int8}}, names, name)
+            genders = get!(GenderUsageScores, names, name)
             genders[gender] = parse_country_values(country_values)
 		end
 	end
@@ -78,6 +82,10 @@ end
 const GENDER_DETECTOR = GenderDetector()
 
 ###########################################
+function gender_country_scores(detector, name)
+    get(GenderUsageScores, detector.names, name)
+end
+
 
 function get_country_ind(country)
     country_ind = findfirst(COUNTRIES, country)
@@ -96,7 +104,7 @@ function _classify_gender(cscore_fun, name, detector)
 
     local most_likely_gender
     max_score = 0
-    for (gender, c_scores) in detector.names[name]
+    for (gender, c_scores) in gender_country_scores(detector, name)
         score = cscore_fun(c_scores)
         if score > max_score
             max_score = score
@@ -104,7 +112,8 @@ function _classify_gender(cscore_fun, name, detector)
         end
     end
     if max_score == 0
-        throw(KeyError(name))
+        # No country was found
+        most_likely_gender = missing
     end
     most_likely_gender
 end

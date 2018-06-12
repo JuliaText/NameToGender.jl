@@ -1,5 +1,6 @@
 using NameToGender
 using Base.Test
+using Missings
 
 
 
@@ -40,6 +41,12 @@ end
 		@test classify_gender("Maria de Jesus") == Female
 		@test classify_gender("Maria") == Female
 	end
+    
+    @testset "Missing Names" begin
+        @test classify_gender("ZZZAAZZ") === missing
+        @test classify_gender("Buğra", "great_britain") === missing
+    end
+
 
 	@testset "case" begin
 		caseless_detector = GenderDetector(case_sensitive=false)
