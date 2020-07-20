@@ -7,7 +7,15 @@
 [![CodeCov](https://codecov.io/gh/JuliaText/NameToGender.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaText/NameToGender.jl)
 [![Coveralls](https://coveralls.io/repos/github/JuliaText/NameToGender.jl/badge.svg?branch=master)](https://coveralls.io/github/JuliaText/NameToGender.jl?branch=master)
 
+** NB: This is a generally terrible idea and should generally be avoided.**
+Since there is not direct mapping, and even names we have as `Male` or `Female` are still by no means fully certain.
+And while there are names as `Androgynous` this does not reflect anywhere near the reality of nonbinary genders.
+If designing data collection for demographic purposes, and you want a gender field, include one (and be sure to also allow a free-text option).
 
+You definately should not use this package to make inferences about individual names.
+With that said, for some basic statistics of large populations, particularly for with-in countries that we have data for (using the 2 arg form), its probably not completely misleading.
+For example (and the reason this was created), when looking at a dataset of all papers published for a field, then this could be used to judge statistics like the portion of papers that have all male authors, vs all female authors.
+Even in such large scale population statistics, this should still not be used as actual data for purposes of study or policy.
 
 ## Usage
 
@@ -61,14 +69,6 @@ julia> ismissing.(classify_gender.(["Linden", "Lyndon"]))
   true
   false
 ```
-
-
-
-## Notice:
-
-This is a heurstic approach.
-It is not perfect.
-
 
 
 ## License and Origin
