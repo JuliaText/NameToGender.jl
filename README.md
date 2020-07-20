@@ -7,7 +7,7 @@
 [![CodeCov](https://codecov.io/gh/JuliaText/NameToGender.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaText/NameToGender.jl)
 [![Coveralls](https://coveralls.io/repos/github/JuliaText/NameToGender.jl/badge.svg?branch=master)](https://coveralls.io/github/JuliaText/NameToGender.jl?branch=master)
 
-* NB: This is a generally terrible idea and should generally be avoided.*
+**Note: This is a generally terrible idea and should generally be avoided.**
 
 Since there is not direct mapping, and even names we have as `Male` or `Female` are still by no means fully certain.
 And while there are names as `Androgynous` this does not reflect anywhere near the reality of nonbinary genders.
