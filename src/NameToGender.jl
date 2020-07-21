@@ -79,7 +79,7 @@ function GenderDetector(;
 end
 
 
-const GENDER_DETECTOR = GenderDetector()
+GENDER_DETECTOR = GenderDetector()
 
 ###########################################
 function gender_country_scores(detector, name)
